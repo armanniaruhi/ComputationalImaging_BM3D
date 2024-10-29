@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.fftpack import dct, idct
+from scipy.spatial.distance import cdist
 
 
 # Function to plot original and noisy images side by side and display PSNR
@@ -86,6 +87,30 @@ def extract_patches(image, patch_size, stride):
             positions.append((i, j))
 
     return np.array(patches), positions
+
+def group_similar_patches(patches, positions, similarity_threshold=30):
+    """
+    Gruppiert ähnliche Patches basierend auf einem Ähnlichkeitsschwellenwert.
+
+    Parameters:
+        patches (np.ndarray): Array der extrahierten Patches.
+        positions (list): Liste der Positionen jedes Patches im Bild.
+        similarity_threshold (float): Schwellenwert für die Ähnlichkeit.
+
+    Returns:
+        list: Liste der 3D-Stacks ähnlicher Patches.
+    """
+    similar_groups = []
+    for i, patch in enumerate(patches):
+        # Berechne die euklidische Distanz zwischen dem aktuellen Patch und allen anderen
+        distances = cdist([patch.flatten()], patches.reshape(patches.shape[0], -1), metric='euclidean')
+
+        # Wähle ähnliche Patches aus basierend auf dem Schwellenwert
+        similar_patches_indices = np.where(distances[0] < similarity_threshold)[0]
+        similar_patches = patches[similar_patches_indices]
+        similar_groups.append(similar_patches)
+
+    return similar_groups
 
 def process_patch(patch, threshold):
     """
