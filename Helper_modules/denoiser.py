@@ -1,5 +1,7 @@
 import numpy as np
 import cv2 as cv  # Assuming you are using OpenCV
+from Helper_modules.helper_func import extract_patches, process_patch, aggregate_patches
+
 
 class ImageDenoiser:
     def __init__(self, original_image, noisy_image):
@@ -77,3 +79,26 @@ class ImageDenoiser:
         # Convert the filtered data back to float32 for visualization
         filtered_data_float = filtered_data.astype(np.float32) / 255.0
         return filtered_data_float
+
+    def denoise_with_bm3d(self, patch_size=8, stride=4, threshold=25):
+        """
+        Denoise the noisy image using BM3D (Block Matching and 3D Filtering).
+
+        Parameters:
+            patch_size (int): The size of each patch to be extracted. Default is 8.
+            stride (int): The step size for patch extraction (overlapping control). Default is 4.
+            threshold (float): Threshold value for the frequency domain denoising. Default is 25.
+
+        Returns:
+            np.ndarray: The denoised image (float32).
+        """
+        # Extract patches from the noisy image
+        noisy_patches, positions = extract_patches(self.noisy_image, patch_size, stride)
+
+        # Apply DCT and thresholding to each patch for denoising
+        denoised_patches = [process_patch(patch, threshold) for patch in noisy_patches]
+
+        # Aggregate the patches back into the full image, averaging overlapping areas
+        denoised_image = aggregate_patches(denoised_patches, positions, self.noisy_image.shape, patch_size)
+
+        return denoised_image

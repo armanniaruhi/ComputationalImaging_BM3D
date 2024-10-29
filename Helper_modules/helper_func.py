@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from scipy.fftpack import dct, idct
 
 
 # Function to plot original and noisy images side by side and display PSNR
@@ -59,3 +60,76 @@ def plot_noisy_images(original_image, gaussian_noisy_image, salt_und_pepper_nois
     # Show the plot
     plt.tight_layout()
     plt.show()
+
+def extract_patches(image, patch_size, stride):
+    """
+    Extract overlapping patches from an image.
+
+    Parameters:
+        image (np.ndarray): The input image from which patches are extracted.
+        patch_size (int): The size of each patch (e.g., 8 for an 8x8 patch).
+        stride (int): The step size to control the overlap of patches.
+
+    Returns:
+        np.ndarray: Array of extracted patches.
+        list: List of (row, col) positions for each patch in the original image.
+    """
+    patches = []
+    positions = []
+    h, w = image.shape
+
+    # Slide over the image with the given stride to extract patches
+    for i in range(0, h - patch_size + 1, stride):
+        for j in range(0, w - patch_size + 1, stride):
+            patch = image[i:i + patch_size, j:j + patch_size]
+            patches.append(patch)
+            positions.append((i, j))
+
+    return np.array(patches), positions
+
+def process_patch(patch, threshold):
+    """
+    Apply DCT (Discrete Cosine Transform) and thresholding to a patch.
+
+    Parameters:
+        patch (np.ndarray): The input patch to be processed.
+        threshold (float): Threshold value for frequency domain denoising.
+
+    Returns:
+        np.ndarray: The denoised patch after inverse DCT.
+    """
+    # Perform DCT to move the patch to the frequency domain
+    dct_patch = dct(dct(patch.T, norm='ortho').T, norm='ortho')
+
+    # Apply soft thresholding in the frequency domain
+    thresholded_patch = np.sign(dct_patch) * np.maximum(np.abs(dct_patch) - threshold, 0)
+
+    # Apply inverse DCT to bring the patch back to the spatial domain
+    return idct(idct(thresholded_patch.T, norm='ortho').T, norm='ortho')
+
+def aggregate_patches(patches, positions, image_shape, patch_size):
+    """
+    Aggregate denoised patches into the full image by averaging overlaps.
+
+    Parameters:
+        patches (np.ndarray): Array of denoised patches.
+        positions (list): List of (row, col) positions for each patch in the original image.
+        image_shape (tuple): The shape of the original image (height, width).
+        patch_size (int): The size of each patch.
+
+    Returns:
+        np.ndarray: The fully denoised image with overlapping regions averaged.
+    """
+    aggregated_image = np.zeros(image_shape)
+    weight_matrix = np.zeros(image_shape)
+
+    # Place each patch back into its original position in the image
+    for patch, (i, j) in zip(patches, positions):
+        aggregated_image[i:i + patch_size, j:j + patch_size] += patch
+        weight_matrix[i:i + patch_size, j:j + patch_size] += 1
+
+    # Avoid division by zero by only dividing where weight_matrix is non-zero
+    with np.errstate(divide='ignore', invalid='ignore'):
+        aggregated_image = np.where(weight_matrix != 0, aggregated_image / weight_matrix, 0)
+
+    return aggregated_image
