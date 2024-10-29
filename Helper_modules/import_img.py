@@ -13,4 +13,20 @@ def load_and_normalize_image(image_path):
     - normalized_image: Image with pixel values normalized between 0 and 1.
     """
     # Load the image using Pillow
-    return np.array(Image.open(image_path).convert('L')) / 255.0
+    original_image = Image.open(image_path).convert('L')
+    # Define the new size (width, height)
+    
+    # # Get the original dimensions
+    # original_width, original_height = original_image.size
+
+    # # Calculate the new height to maintain the aspect ratio
+    # aspect_ratio = original_height / original_width
+    # new_height = int(desired_width * aspect_ratio)
+
+    # # Resize the image
+    # new_size = (desired_width, new_height)
+    # resized_image = original_image.resize(new_size, Image.LANCZOS)
+
+    # Convert to a numpy array and normalize pixel values
+    normalized_image = np.array(original_image) / 255.0
+    return normalized_image

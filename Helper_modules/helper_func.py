@@ -23,7 +23,7 @@ def plot_images(original, noisy, denoised_image, method_name, noise_type):
     ax[2].imshow(denoised_image, cmap='gray')
     ax[2].set_title(f'Denoised Image\n(PSNR: {psnr_value:.2f} dB)')
     ax[2].axis('off')
-    
+    plt.savefig(f"Results/plots/methode_{method_name},noise_{noise_type}.png")  # Save the figure if a path is provided
     plt.show()
 
 def plot(img):
@@ -148,13 +148,16 @@ def aggregate_patches(patches, positions, image_shape, patch_size):
     aggregated_image = np.zeros(image_shape)
     weight_matrix = np.zeros(image_shape)
 
-    # Place each patch back into its original position in the image
     for patch, (i, j) in zip(patches, positions):
         aggregated_image[i:i + patch_size, j:j + patch_size] += patch
         weight_matrix[i:i + patch_size, j:j + patch_size] += 1
 
     # Avoid division by zero by only dividing where weight_matrix is non-zero
-    with np.errstate(divide='ignore', invalid='ignore'):
-        aggregated_image = np.where(weight_matrix != 0, aggregated_image / weight_matrix, 0)
+    aggregated_image = np.divide(
+        aggregated_image,
+        np.where(weight_matrix != 0, weight_matrix, 1),  # Avoid zero division by using 1 where weight_matrix is zero
+        out=np.zeros_like(aggregated_image),  # Fill zeros for locations with zero weight
+        where=(weight_matrix != 0)  # Only divide where weight_matrix is non-zero
+        )
 
     return aggregated_image
