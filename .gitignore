@@ -1,0 +1,21 @@
+# macOS system files
+.DS_Store
+
+# Python Bytecode
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Jupyter Notebook Checkpoints
+.ipynb_checkpoints/
+
+# IDE Files
+.idea/
+.vscode/
+
+# Dataset-related
+Dataset/.DS_Store
+
+# Hidden files in general
+.*
