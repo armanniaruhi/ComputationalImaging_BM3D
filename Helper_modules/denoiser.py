@@ -2,6 +2,8 @@ import numpy as np
 import cv2 as cv  # Assuming you are using OpenCV
 from Helper_modules.helper_func import extract_patches, group_similar_patches, process_patch, aggregate_patches
 from sklearn.decomposition import MiniBatchDictionaryLearning
+from skimage import restoration
+from scipy.ndimage import median_filter
 
 class ImageDenoiser:
     def __init__(self, original_image, noisy_image):
@@ -110,7 +112,33 @@ class ImageDenoiser:
 
         return denoised_image
     
+    def denoise_with_wavelet(self, sigma=0.1, method='BayesShrink', mode='soft'):
+        denoised_image = restoration.denoise_wavelet(self.noisy_image, sigma=sigma, method=method, mode=mode, rescale_sigma=True)
+        return denoised_image.astype(np.float32)
 
+    def denoise_with_tv_bregman(self, weight=0.1, max_iter=100):
+        denoised_image = restoration.denoise_tv_bregman(self.noisy_image, weight=weight, max_num_iter=max_iter)
+        return denoised_image.astype(np.float32)
+
+    def denoise_with_median_filter(self, size=9):
+        denoised_image = median_filter(self.noisy_image, size=size)
+        return denoised_image.astype(np.float32)
+
+    def denoise_with_tv_chambolle(self, weight=0.1, epsilon=0.001, max_num_iter=200):
+        """
+        Denoise the noisy image using Total Variation (TV) minimization with the Chambolle algorithm.
+
+        Parameters:
+            weight (float): Denoising weight. Larger values remove more noise. Default is 0.1.
+            epsilon (float): Tolerance for the stopping criterion. Default is 0.001.
+            max_num_iter (int): Maximum number of iterations. Default is 200.
+
+        Returns:
+            np.ndarray: The denoised image (float32).
+        """
+        denoised_image = restoration.denoise_tv_chambolle(self.noisy_image, weight=weight, 
+                                                          eps=epsilon, max_num_iter=max_num_iter)
+        return denoised_image
 
     def denoise_with_dictionary_learning(self, patch_size=8, n_components=256, alpha=1.0, max_patches=10000):
         """

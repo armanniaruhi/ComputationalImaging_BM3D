@@ -26,6 +26,39 @@ def plot_images(original, noisy, denoised_image, method_name, noise_type):
     plt.savefig(f"Results/plots/methode_{method_name},noise_{noise_type}.png")  # Save the figure if a path is provided
     plt.show()
 
+
+def plot_all_denoised(original, noisy, all_denoised, method_names, psnrs, noise_type):
+    num_images = len(all_denoised) + 2
+    
+    # Calculate number of rows and columns
+    num_cols = 4
+    num_rows = (num_images - 1) // num_cols + 1
+
+    fig, ax = plt.subplots(num_rows, num_cols, figsize=(5 * num_cols, 5 * num_rows))
+
+    # Flatten the axes array for easier indexing
+    ax = ax.flatten()
+
+    # Plot the original image
+    ax[0].imshow(original, cmap='gray')
+    ax[0].set_title('Original Image')
+    ax[0].axis('off')
+
+    # Plot the noisy image
+    ax[1].imshow(noisy, cmap='gray')
+    ax[1].set_title(f'Noisy Image\n(Noise: {noise_type})')
+    ax[1].axis('off')
+
+    # Plot the denoised images
+    for i, (denoised_image, method_name, psnr) in enumerate(zip(all_denoised, method_names, psnrs)):
+        ax[i + 2].imshow(denoised_image, cmap='gray')
+        ax[i + 2].set_title(f'Denoised: {method_name}\n(PSNR: {psnr:.2f} dB)')
+        ax[i + 2].axis('off')
+
+    # Adjust layout and display the plot
+    plt.tight_layout()
+    plt.show()
+    
 def plot(img):
     plt.imshow(img)
     plt.show
@@ -60,6 +93,7 @@ def plot_noisy_images(original_image, gaussian_noisy_image, salt_und_pepper_nois
 
     # Show the plot
     plt.tight_layout()
+    plt.savefig(f"Results/plots/denoised_images.png")
     plt.show()
 
 def extract_patches(image, patch_size, stride):

@@ -1,0 +1,17 @@
+sigma,method,mode,PSNR
+0.1,VisuShrink,soft,23.09650920527539
+0.1,VisuShrink,hard,21.581385288305633
+0.1,BayesShrink,soft,17.56331929162254
+0.1,BayesShrink,hard,15.50908871498634
+0.2,VisuShrink,soft,21.60848831196423
+0.2,VisuShrink,hard,22.903337452991394
+0.2,BayesShrink,soft,25.286129757683934
+0.2,BayesShrink,hard,25.2920172714056
+0.3,VisuShrink,soft,20.831965199131382
+0.3,VisuShrink,hard,21.87026716176309
+0.3,BayesShrink,soft,24.254828320540263
+0.3,BayesShrink,hard,24.593195211218305
+0.4,VisuShrink,soft,20.39919812361199
+0.4,VisuShrink,hard,21.21505318990023
+0.4,BayesShrink,soft,23.317472202069034
+0.4,BayesShrink,hard,23.90063260151596
