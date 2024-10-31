@@ -10,6 +10,9 @@
 > - Bilateral Filter
 > - Non-Local Means Filter 
 > - BM3D Filter
+> - Bergman TV
+> - Chambolle TV
+> - Wavelet
 > ### Project Plan:
 > - 1 Step:
 > Implement the methods and test them on public Dataset.
