@@ -39,7 +39,7 @@ class ImageDenoiser:
         denoised_image_bilateral = denoised_image_bilateral.astype(np.float32) / 255.0
         return denoised_image_bilateral
 
-    def denoise_with_gaussian_blur(self, kernel_size=(5, 5), sigmaX=1):
+    def denoise_with_gaussian_blur(self, kernel_size=(5, 5), sigmaX=1.0):
         """
         Denoise the noisy image using Gaussian blur.
 
@@ -112,8 +112,10 @@ class ImageDenoiser:
 
         return denoised_image
     
-    def denoise_with_wavelet(self, sigma=0.1, method='BayesShrink', mode='soft'):
-        denoised_image = restoration.denoise_wavelet(self.noisy_image, sigma=sigma, method=method, mode=mode, rescale_sigma=True)
+    def denoise_with_wavelet(self, wavelet='db1', sigma=0.1, method='BayesShrink', mode='soft',wavelet_levels=None, convert2ycbcr=False,rescale_sigma=True):
+        print(35656)
+        denoised_image = restoration.denoise_wavelet(self.noisy_image, sigma=sigma,wavelet=wavelet, mode=mode, wavelet_levels=wavelet_levels,
+                                                     convert2ycbcr=convert2ycbcr,method=method,rescale_sigma=rescale_sigma)
         return denoised_image.astype(np.float32)
 
     def denoise_with_tv_bregman(self, weight=0.1, max_iter=100):
@@ -124,7 +126,7 @@ class ImageDenoiser:
         denoised_image = median_filter(self.noisy_image, size=size)
         return denoised_image.astype(np.float32)
 
-    def denoise_with_tv_chambolle(self, weight=0.1, epsilon=0.001, max_num_iter=200):
+    def denoise_with_tv_chambolle(self, img, weight=0.1, epsilon=0.001, max_num_iter=200):
         """
         Denoise the noisy image using Total Variation (TV) minimization with the Chambolle algorithm.
 
@@ -136,7 +138,7 @@ class ImageDenoiser:
         Returns:
             np.ndarray: The denoised image (float32).
         """
-        denoised_image = restoration.denoise_tv_chambolle(self.noisy_image, weight=weight, 
+        denoised_image = restoration.denoise_tv_chambolle(image= img, weight=weight, 
                                                           eps=epsilon, max_num_iter=max_num_iter)
         return denoised_image
 

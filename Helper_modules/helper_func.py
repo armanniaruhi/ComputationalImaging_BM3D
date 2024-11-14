@@ -60,7 +60,7 @@ def plot_all_denoised(original, noisy, all_denoised, method_names, psnrs, noise_
     plt.show()
     
 def plot(img):
-    plt.imshow(img)
+    plt.imshow(img, cmap='gray')
     plt.show
 
 def calculate_psnr(original_image, noisy_image): 
