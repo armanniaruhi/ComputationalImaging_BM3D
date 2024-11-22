@@ -35,7 +35,6 @@ class DenoisingEvaluator:
                 if psnr_value > best_psnr:
                     best_psnr = psnr_value
                     best_params = params
-        print("done")
         self.all_denoised.append(denoise_func(**best_params))
         self.all_psnrs.append(int(best_psnr))
         self.method_names.append(method_name)

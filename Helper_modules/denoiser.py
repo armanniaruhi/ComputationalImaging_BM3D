@@ -81,43 +81,7 @@ class ImageDenoiser:
         # Convert the filtered data back to float32 for visualization
         filtered_data_float = filtered_data.astype(np.float32) / 255.0
         return filtered_data_float
-
-    def denoise_with_bm3d(self, patch_size=8, stride=4, threshold=0.25, similarity_threshold=30):
-        """
-        Denoise the noisy image using BM3D (Block Matching and 3D Filtering).
-
-        Parameters:
-            patch_size (int): The size of each patch to be extracted. Default is 8.
-            stride (int): The step size for patch extraction (overlapping control). Default is 4.
-            threshold (float): Threshold value for the frequency domain denoising. Default is 0.25.
-            similarity_threshold (float): Similarity threshold for grouping patches.
-
-        Returns:
-            np.ndarray: The denoised image (float32).
-        """
-        # Extract patches from the noisy image
-        noisy_patches, positions = extract_patches(self.noisy_image, patch_size, stride)
-
-        # Group similar patches into 3D blocks
-        similar_patch_groups = group_similar_patches(noisy_patches, positions, similarity_threshold)
-
-        # Process each 3D block using DCT and thresholding
-        denoised_patches = []
-        for group in similar_patch_groups:
-            denoised_group = np.array([process_patch(patch, threshold) for patch in group])
-            denoised_patches.append(np.mean(denoised_group, axis=0))  # Mittelwert über den 3D-Block
-
-        # Aggregate the patches back into the full image, averaging overlapping areas
-        denoised_image = aggregate_patches(denoised_patches, positions, self.noisy_image.shape, patch_size)
-
-        return denoised_image
     
-    def denoise_with_wavelet(self, wavelet='db1', sigma=0.1, method='BayesShrink', mode='soft',wavelet_levels=None, convert2ycbcr=False,rescale_sigma=True):
-        print(35656)
-        denoised_image = restoration.denoise_wavelet(self.noisy_image, sigma=sigma,wavelet=wavelet, mode=mode, wavelet_levels=wavelet_levels,
-                                                     convert2ycbcr=convert2ycbcr,method=method,rescale_sigma=rescale_sigma)
-        return denoised_image.astype(np.float32)
-
     def denoise_with_tv_bregman(self, weight=0.1, max_iter=100):
         denoised_image = restoration.denoise_tv_bregman(self.noisy_image, weight=weight, max_num_iter=max_iter)
         return denoised_image.astype(np.float32)
