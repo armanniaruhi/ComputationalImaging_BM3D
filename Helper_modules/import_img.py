@@ -13,7 +13,7 @@ def load_and_normalize_image(image_path):
     - normalized_image: Image with pixel values normalized between 0 and 1.
     """
     # Load the image using Pillow
-    original_image = Image.open(image_path).convert('L')
+    original_image = Image.open(image_path)
     # Define the new size (width, height)
     
     # # Get the original dimensions

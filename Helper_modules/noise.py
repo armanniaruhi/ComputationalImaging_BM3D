@@ -23,7 +23,8 @@ def add_salt_and_pepper_noise(image, salt_prob=0.05, pepper_prob=0.05):
 
     return noisy_image
 
-def add_poisson_noise(image):
+def add_poisson_noise(image, lam):
+    noisy_image = image*lam
     noisy_image = random_noise(image, mode='poisson')
     return noisy_image
 
