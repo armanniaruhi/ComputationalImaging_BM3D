@@ -1,0 +1,122 @@
+{
+    "params_block_ht": {
+      "file_path": "/Results/Leech results/Block_Size/results_data_Block_Size.xlsx",
+      "fix_column_header": "Max 3D Size HT",
+      "fix_value": [16, 32],
+      "column_subheader": "Max 3D Size Wiener",
+      "renamed_column_subheader": "Block size wiener",
+      "selected_cols": {
+        "Sigma PSD": "Sigma",
+        "Max 3D Size Wiener": "Block size wiener",
+        "Clip-IQA": "Clip-IQA  ⇈",
+        "BRISQUE": "BRISQUE  ⇊",
+        "Total Variation": "TV  ⇊"
+      }
+    },
+    "params_block_wiener": {
+      "file_path": "/Results/Leech results/Block_Size/results_data_Block_Size.xlsx",
+      "fix_column_header": "Max 3D Size Wiener",
+      "fix_value": [16, 32],
+      "column_subheader": "Max 3D Size HT",
+      "renamed_column_subheader": "Block size hard",
+      "selected_cols": {
+        "Sigma PSD": "Sigma",
+        "Max 3D Size HT": "Block size hard",
+        
+        "Clip-IQA": "Clip-IQA  ⇈",
+        "BRISQUE": "BRISQUE  ⇊",
+        "Total Variation": "TV  ⇊"
+      }
+    },
+    "params_patch_ht": {
+      "file_path": "/Results/Leech results/Patch_Size/results_data_Patch_Size.xlsx",
+      "fix_column_header": "Block Size HT",
+      "fix_value": [8, 16],
+      "column_subheader": "Block Size Wiener",
+      "renamed_column_subheader": "Patch Size wiener",
+      "selected_cols": {
+        "Sigma PSD": "Sigma",
+        "Block Size Wiener": "Patch Size wiener",
+        
+        "Clip-IQA": "Clip-IQA  ⇈",
+        "BRISQUE": "BRISQUE  ⇊",
+        "Total Variation": "TV  ⇊"
+      }
+    },
+    "params_patch_wiener": {
+      "file_path": "/Results/Leech results/Patch_Size/results_data_Patch_Size.xlsx",
+      "fix_column_header": "Block Size Wiener",
+      "fix_value": [8, 16],
+      "column_subheader": "Block Size HT",
+      "renamed_column_subheader": "Patch size hard",
+      "selected_cols": {
+        "Sigma PSD": "Sigma",
+        "Block Size HT": "Patch size hard",
+        
+        "Clip-IQA": "Clip-IQA  ⇈",
+        "BRISQUE": "BRISQUE  ⇊",
+        "Total Variation": "TV  ⇊"
+      }
+    },
+    "params_step_ht": {
+      "file_path": "/Results/Leech results/Step_size/results_data_Step_size_all.xlsx",
+      "fix_column_header": "Step HT",
+      "fix_value": [1, 3, 5],
+      "column_subheader": "Step Wiener",
+      "renamed_column_subheader": "Step size wiener",
+      "selected_cols": {
+        "Sigma PSD": "Sigma",
+        "Step Wiener": "Step size wiener",
+        
+        "Clip-IQA": "Clip-IQA  ⇈",
+        "BRISQUE": "BRISQUE  ⇊",
+        "Total Variation": "TV  ⇊"
+      }
+    },
+    "params_step_wiener": {
+      "file_path": "/Results/Leech results/Step_size/results_data_Step_size_all.xlsx",
+      "fix_column_header": "Step Wiener",
+      "fix_value": [1,3,5],
+      "column_subheader": "Step HT",
+      "renamed_column_subheader": "Step size hard",
+      "selected_cols": {
+        "Sigma PSD": "Sigma",
+        "Step HT": "Step size hard",
+        
+        "Clip-IQA": "Clip-IQA  ⇈",
+        "BRISQUE": "BRISQUE  ⇊",
+        "Total Variation": "TV  ⇊"
+      }
+    },
+    "params_threshold_ht": {
+      "file_path": "/Results/Leech results/Threshold_Hard_Wiener/results_data_Threshold_Hard_Wiener.xlsx",
+      "fix_column_header": "Tau Match",
+      "fix_value": [1500, 3000, 4500],
+      "column_subheader": "Tau Match Wiener",
+      "renamed_column_subheader": "Threshold wiener",
+      "selected_cols": {
+        "Sigma PSD": "Sigma",
+        "Tau Match Wiener": "Threshold wiener",
+        
+        "Clip-IQA": "Clip-IQA  ⇈",
+        "BRISQUE": "BRISQUE  ⇊",
+        "Total Variation": "TV  ⇊"
+      }
+    },
+    "params_threshold_wiener": {
+      "file_path": "/Results/Leech results/Threshold_Hard_Wiener/results_data_Threshold_Hard_Wiener.xlsx",
+      "fix_column_header": "Tau Match Wiener",
+      "fix_value": [200,400,600],
+      "column_subheader": "Tau Match",
+      "renamed_column_subheader": "Threshold hard",
+      "selected_cols": {
+        "Sigma PSD": "Sigma",
+        "Tau Match": "Threshold hard",
+        
+        "Clip-IQA": "Clip-IQA  ⇈",
+        "BRISQUE": "BRISQUE  ⇊",
+        "Total Variation": "TV  ⇊"
+      }
+    }
+  }
+  
