@@ -33,6 +33,14 @@ This project explores computational image denoising using **BM3D (Block Matching
 - **Challenges with Microscopic Images**: Existing metrics may not fully align with human perception.
 - **Parameter Optimization**: Patch size, block count, transformation type, and threshold values significantly affect results.
 
+### Web App for Results Visualization:
+To make the results more accessible, we developed a **web application** where users can:
+- View denoised images for different configurations.
+- Compare scores from **BRISQUE, TV Loss, CLIP-IQA, and SNR**.
+- Analyze the impact of parameter tuning on denoising performance.
+
+🔗 **Check out our results here**: [Web App Link](#) *(Replace with actual URL)*
+
 ### Results & Conclusion:
 - BM3D remains a strong traditional denoising method, especially for Gaussian noise.
 - No single metric perfectly evaluates microscopic image denoising.
