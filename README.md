@@ -39,7 +39,7 @@ To make the results more accessible, we developed a **web application** where us
 - Compare scores from **BRISQUE, TV Loss, CLIP-IQA, and SNR**.
 - Analyze the impact of parameter tuning on denoising performance.
 
-🔗 **Check out our results here**: [Web App Link](#) *(Replace with actual URL)*
+🔗 **Check out our results here**: Please run the plot_table.py to see the results in the app.
 
 ### Results & Conclusion:
 - BM3D remains a strong traditional denoising method, especially for Gaussian noise.
