@@ -165,9 +165,10 @@ def process_bm3d(
     profile.search_window_wiener = search_window_wiener  # 39
     profile.tau_match_wiener = tau_match_wiener  # 400
     profile.beta_wiener = beta_wiener  # 2.0
-    profile.dec_level = (
-        0  # dec. levels of the dyadic wavelet 2D transform for blocks
-    )
+    profile.dec_level = 1
+    
+    
+    profile.transform_3rd_dim_name = "bior1.5"
 
     file_path = f"{base_dir}/Dataset/{dataset}/2024_04_25_11_54_01_img_x_15_y_{y}_r_0_g_1_b_0_cropped.exr"
     # Load and preprocess noisy image
@@ -230,10 +231,10 @@ def process_bm3d(
         denoised_img_float32.shape[1], denoised_img_float32.shape[0]
     )  # Width, Height
 
-    # # Write the data to an EXR file
-    # path_final = output_base_folder + f"{type}-{index}_image_res.exr"
-    # exr_file = OpenEXR.OutputFile(path_final, header)
-    # exr_file.writePixels({"R": R, "G": G, "B": B})
-    # exr_file.close()
+    # Write the data to an EXR file
+    path_final = "result_image_res.exr"
+    exr_file = OpenEXR.OutputFile(path_final, header)
+    exr_file.writePixels({"R": R, "G": G, "B": B})
+    exr_file.close()
     computation_time = end_time- start_time
     return computation_time, lpips_score, clipiqa_score, tv, snr_mean_db, noisy_img,denoised_img
