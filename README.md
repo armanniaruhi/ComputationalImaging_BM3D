@@ -7,7 +7,7 @@
 - Haitham El Euch
 
 ### Project Description:
-In this project, we will implement several denoising algorithms and evaluate their performance on various types of images. The goal is to enhance image quality by removing noise while preserving important details.
+In this project, we will implement several denoising algorithms and evaluate their performance on various types of images. The goal is to enhance image quality by removing noise while preserving important details. We have specifiecally used the BM3D method to denoise the images.
 
 ### Denoising Algorithms Implemented:
 - **Gaussian Filter**: A linear filter used to remove Gaussian noise by averaging pixel values in a neighborhood.
@@ -20,8 +20,9 @@ In this project, we will implement several denoising algorithms and evaluate the
 
 ### Project Plan:
 1. **Step 1**: Implement the denoising methods and test them on a public dataset.
-2. **Step 2**: Apply the methods to our custom datasets (Leech and ResTarget) and analyze the results.
-3. **Step 3**: Compare the denoising results across methods and datasets, and prepare a presentation of findings.
+2. **Step 2**: Use the BM3D algorithm in details and try different parameters from the algorithm
+3. **Step 3**: Apply the methods to our custom datasets (Leech and ResTarget) and analyze the results.
+4. **Step 4**: Compare the denoising results across methods and datasets, and prepare a presentation of findings.
 
 ### Denoising using BM3D:
 BM3D (Block-Matching and 3D Filtering) is one of the most powerful denoising techniques. It operates in three main steps:
