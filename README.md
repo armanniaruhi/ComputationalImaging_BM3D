@@ -57,8 +57,9 @@ To make the results more accessible, we developed a **web application** where us
 
 
 ---
-
-# Create a Conda Environment from a YAML File
+# Instruction to use the different application in the repository
+---
+## Create a Conda Environment from a YAML File
 
 To create a new conda environment using a YAML file (`environment.yml`), follow these steps:
 
