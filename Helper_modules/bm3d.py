@@ -237,4 +237,4 @@ def process_bm3d(
     exr_file.writePixels({"R": R, "G": G, "B": B})
     exr_file.close()
     computation_time = end_time- start_time
-    return computation_time, lpips_score, clipiqa_score, tv, snr_mean_db, noisy_img,denoised_img
+    return computation_time, lpips_score, clipiqa_score, tv, brsique_score, snr_mean_db, noisy_img,denoised_img

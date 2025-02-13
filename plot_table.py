@@ -5,7 +5,7 @@ import numpy as np
 import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output
-import json
+import yaml
 
 # Initialize the Dash app
 app = dash.Dash(__name__)
@@ -14,8 +14,8 @@ app = dash.Dash(__name__)
 base_dir = os.getcwd()  # Current working directory
 
 # Define all parameters in a dictionary and read from json
-with open('config.json') as f:
-    config = json.load(f)
+with open('config.yml', 'r') as f:
+    config = yaml.safe_load(f)
     
 params_block_ht= config["params_block_ht"]
 params_block_wiener= config["params_block_wiener"]
