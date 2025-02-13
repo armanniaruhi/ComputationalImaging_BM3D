@@ -145,14 +145,6 @@ The script extracts the following metrics:
 
 The denoised image is saved in `.exr` format.
 
-### Example Usage
-
-```python
-dataset = "leech"
-y = 16
-sigma = 5
-stage = BM3DStages.ALL_STAGES
-results = bm3d.process_bm3d(dataset, y, sigma, stage)
 ### Output Metrics
 
 - **Computation Time**: Total time taken for processing.
@@ -161,3 +153,59 @@ results = bm3d.process_bm3d(dataset, y, sigma, stage)
 - **Total Variation (TV)**: Image smoothness measurement.
 - **BRISQUE Score**: Blind image quality assessment.
 - **SNR (Mean dB)**: Signal-to-noise ratio improvement.
+
+
+---
+
+# Denoising Techniques in `Denoising_synthetic.ipynb`
+
+This notebook explores several denoising techniques applied to synthetic noisy images, with the goal of reducing various types of noise while preserving important details. The following denoising methods were evaluated and compared:
+
+## 1. **Gaussian Noise Denoising**
+   - **Noise Type:** Gaussian noise
+   - **Method:** A Gaussian filter is used to smooth the image and reduce Gaussian noise added to the image.
+   - **Evaluation:** The denoising performance was evaluated by tuning the kernel size (`d`) and the sigma value (`sigmaX`) using a grid search.
+   - **Results:** Best parameters were found using PSNR (Peak Signal-to-Noise Ratio) evaluation.
+   - **Best Parameters:** Based on the grid search, the best denoising parameters were selected, resulting in the highest PSNR.
+
+## 2. **Salt & Pepper Noise Denoising**
+   - **Noise Type:** Salt and pepper noise
+   - **Method:** Median filter denoising technique was applied to remove the random black and white pixels resembling salt and pepper grains.
+   - **Evaluation:** The performance of the median filter was evaluated by tuning the filter size (`size`) using grid search.
+   - **Results:** The best filter size was selected to achieve optimal denoising performance based on PSNR.
+   - **Best Parameters:** The best filter size was selected, and the denoised image showed the highest PSNR.
+
+## 3. **Poisson Noise Denoising**
+   - **Noise Type:** Poisson noise
+   - **Method:** Poisson noise was added, and various denoising techniques were explored to reduce this type of noise.
+   - **Evaluation:** A grid search was conducted over different Poisson noise-specific parameters to evaluate performance.
+
+## 4. **Speckle Noise Denoising**
+   - **Noise Type:** Speckle noise
+   - **Method:** Speckle noise was removed using techniques like bilateral filtering and wavelet-based denoising.
+   - **Evaluation:** Speckle noise was reduced by adjusting the filter parameters for the bilateral filter and wavelet methods.
+
+## 5. **Bilateral Filter Denoising**
+   - **Noise Type:** Gaussian, Salt & Pepper, Speckle Noise
+   - **Method:** The bilateral filter was used for noise reduction while preserving edges. Parameters like the filter diameter (`d`), color standard deviation (`sigma_color`), and spatial standard deviation (`sigma_space`) were tuned via grid search.
+   - **Evaluation:** The performance was evaluated based on the PSNR after adjusting the filter parameters.
+   - **Best Parameters:** The best parameters were chosen to provide optimal denoising results.
+
+## 6. **Non-Local Means (NLM) Denoising**
+   - **Noise Type:** Gaussian, Salt & Pepper, Speckle Noise
+   - **Method:** Non-local means denoising was applied to smooth out noise while preserving textures and edges. The key parameter (`h`) was tuned for optimal results.
+   - **Evaluation:** The method was evaluated based on the PSNR, and the best parameter (`h`) was selected for each noise type.
+
+## 7. **Total Variation (TV) Bregman Denoising**
+   - **Noise Type:** Gaussian, Poisson, Speckle Noise
+   - **Method:** TV Bregman denoising was applied, which works by minimizing the total variation of the image while reducing noise. Parameters like `weight` and `max_iter` were tuned to optimize denoising.
+   - **Evaluation:** The best combination of `weight` and `max_iter` was selected based on PSNR for optimal denoising.
+
+## 8. **Total Variation (TV) Chambolle Denoising**
+   - **Noise Type:** Gaussian, Poisson, Speckle Noise
+   - **Method:** TV Chambolle denoising was applied to the denoised image from the median filter step. This method minimizes total variation with additional parameters `weight`, `epsilon`, and `max_iter`.
+   - **Evaluation:** The evaluation was based on the PSNR, with the best parameters chosen for denoising.
+
+### Summary
+Each denoising method was evaluated by adjusting various parameters using grid search to achieve the best PSNR values. The results demonstrate the effectiveness of each technique in reducing different types of noise while preserving key details in the images.
+

@@ -23,7 +23,7 @@ def plot_images(original, noisy, denoised_image, method_name, noise_type):
     ax[2].imshow(denoised_image, cmap='gray')
     ax[2].set_title(f'Denoised Image\n(PSNR: {psnr_value:.2f} dB)')
     ax[2].axis('off')
-    plt.savefig(f"Results/plots/methode_{method_name},noise_{noise_type}.png")  # Save the figure if a path is provided
+    # plt.savefig(f"Results/plots/methode_{method_name},noise_{noise_type}.png")  # Save the figure if a path is provided
     plt.show()
 
 
@@ -56,7 +56,6 @@ def plot_all_denoised(original, noisy, all_denoised, method_names, psnrs, noise_
         ax[i + 2].axis('off')
 
     # Adjust layout and display the plot
-    plt.tight_layout()
     plt.show()
     
 def plot(img):
@@ -92,9 +91,8 @@ def plot_noisy_images(original_image, gaussian_noisy_image, salt_und_pepper_nois
         ax.axis('off')  # Hide the axes for a cleaner look
 
     # Show the plot
-    plt.tight_layout()
-    plt.savefig(f"Results/plots/denoised_images.png")
     plt.show()
+
 
 def extract_patches(image, patch_size, stride):
     """
